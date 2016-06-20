@@ -23,9 +23,10 @@ RUN chmod +x /usr/bin/launcher.sh                    			&& \
                            jq   \
                            mc   \
                            default-jdk                                  && \
-	echo 'Installing Anaconda ...'                             	&& \
-	bash /opt/Anaconda.sh -b -p /opt/anaconda         		&& \
-	echo /opt/Anaconda.sh						&& \
+    echo 'Installing Anaconda ...'                             		&& \
+    bash /opt/Anaconda.sh -b -p /opt/anaconda         			&& \
+    rm /opt/Anaconda.sh							&& \
+    conda install -c r ipython-notebook r-irkernel			&& \
     echo 'Installing seaborn (Python module) ...'                       && \
     PATH=/opt/anaconda/bin:$PATH pip install seaborn                    && \
     echo 'Extracting Spark ...'                                         && \
@@ -47,7 +48,6 @@ CMD ["bash", "-c", "/usr/bin/launcher.sh"]
 
 ## TODO: add
 # conda update ipython-notebook
-# conda install -c r ipython-notebook r-irkernel
 
 # docker build -t sparkworkshop github.com/dserban/SparkWorkshop
 # docker run -p 8888:8888 -p 4040:4040 -it dserban/sparkworkshop sh -c /opt/launcher.sh
