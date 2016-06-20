@@ -6,7 +6,7 @@ Includes spark-csv package.
 
 ## Setup
 ### Build
-**docker build** sparkpy github.com/lucianmoldovanu/SparkPy
+**docker build -t** sparkpy github.com/lucianmoldovanu/SparkPy
 
 ### Run (with mounted folder)
 **docker run -v** '/c/Users/i311766/Documents/iPython/2016.06 nasa_pdms/data':/data/ **--rm -p** 8888:8888 **-p** 4040:4040 **-it** sparkpy
