@@ -1,9 +1,9 @@
 FROM ubuntu:14.04
 
 ADD launcher.sh /usr/bin/launcher.sh
-#ADD spark-csv_2.11-1.4.0.jar /usr/bin/spark-csv.jar
-#ADD univocity-parsers-2.1.2.jar /usr/bin/uni-parsers.jar
-#ADD commons-csv-1.4.jar /usr/bin/com-csv.jar
+#ADD dependencies/spark-csv_2.11-1.4.0.jar /usr/bin/spark-csv.jar
+#ADD dependencies/univocity-parsers-2.1.2.jar /usr/bin/uni-parsers.jar
+#ADD dependencies/commons-csv-1.4.jar /usr/bin/com-csv.jar
 
 RUN chmod +x /usr/bin/launcher.sh                                                               && \
     export DEBIAN_FRONTEND=noninteractive                                                       && \
