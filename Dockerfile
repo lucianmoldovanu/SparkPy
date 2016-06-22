@@ -1,42 +1,43 @@
 FROM ubuntu:14.04
 
 ADD launcher.sh /usr/bin/launcher.sh
-ADD spark-csv_2.11-1.4.0.jar /usr/bin/spark-csv.jar
-ADD univocity-parsers-2.1.2.jar /usr/bin/uni-parsers.jar
-ADD commons-csv-1.4.jar /usr/bin/com-csv.jar
+#ADD spark-csv_2.11-1.4.0.jar /usr/bin/spark-csv.jar
+#ADD univocity-parsers-2.1.2.jar /usr/bin/uni-parsers.jar
+#ADD commons-csv-1.4.jar /usr/bin/com-csv.jar
 
-RUN apt-get -qq update			&& \
-	apt-get -qq -y install wget	\
-			curl
-
-RUN echo 'Downloading Anaconda ...' && \
-	wget -qO /opt/Anaconda.sh https://repo.continuum.io/archive/Anaconda2-2.5.0-Linux-x86_64.sh	
-
-RUN echo 'Downloading Spark ...' && \
-	wget -qO /opt/spark.tgz http://d3kbcqa49mib13.cloudfront.net/spark-1.6.1-bin-hadoop2.6.tgz
-
-RUN chmod +x /usr/bin/launcher.sh                    			&& \
-    export DEBIAN_FRONTEND=noninteractive				&& \
-	apt-get -qq update                                              && \
-    apt-get -qq -y install git	\
-                           vim  \
-                           jq   \
-                           mc   \
-                           default-jdk                                  && \
-    echo 'Installing Anaconda ...'                             		&& \
-    bash /opt/Anaconda.sh -b -p /opt/anaconda         			&& \
-    rm /opt/Anaconda.sh							&& \
-    conda install -c r ipython-notebook r-irkernel			&& \
-    echo 'Installing seaborn (Python module) ...'                       && \
-    PATH=/opt/anaconda/bin:$PATH pip install seaborn                    && \
-    echo 'Extracting Spark ...'                                         && \
-    tar -xf /opt/spark.tgz -C /opt                                      && \
-    rm /opt/spark.tgz                                                   && \
-    mv /opt/spark-* /opt/spark                                          && \
-    cd /opt/spark/conf                                                  && \
-    sed 's/INFO/ERROR/' log4j.properties.template > log4j.properties    && \
-    echo $(hostname) > slaves                                           && \
-    cd /opt                                                             && \
+RUN chmod +x /usr/bin/launcher.sh                                                               && \
+    export DEBIAN_FRONTEND=noninteractive                                                       && \
+    apt-get -qq update                                                                          && \
+    apt-get -qq -y install wget                                                                    \
+                           curl                                                                    \
+                           git                                                                     \
+                           vim                                                                     \
+                           jq                                                                      \
+                           mc                                                                      \
+                           default-jdk                                                          && \
+    echo 'Downloading Anaconda ...'                                                             && \
+    wget -qO /opt/Anaconda.sh https://repo.continuum.io/archive/Anaconda2-4.0.0-Linux-x86_64.sh && \
+    cd /opt                                                                                     && \
+    bash Anaconda.sh -b -p /opt/anaconda                                                        && \
+    rm Anaconda.sh                                                                              && \
+    echo 'Installing seaborn (Python module) ...'                                               && \
+    PATH=/opt/anaconda/bin:$PATH pip install seaborn                                            && \
+    CLOSER="https://www.apache.org/dyn/closer.cgi?as_json=1"                                    && \
+    MIRROR=$(curl --stderr /dev/null ${CLOSER} | jq -r '.preferred')                            && \
+    echo 'Downloading Spark ...'                                                                && \
+    wget -qO /opt/spark.tgz                                                                        \
+             ${MIRROR}spark/spark-1.6.1/spark-1.6.1-bin-hadoop2.6.tgz                           && \
+    echo 'Extracting Spark ...'                                                                 && \
+    tar -xf /opt/spark.tgz -C /opt                                                              && \
+    rm /opt/spark.tgz                                                                           && \
+    mv /opt/spark-* /opt/spark                                                                  && \
+    cd /opt/spark/conf                                                                          && \
+    sed 's/INFO/ERROR/' log4j.properties.template > log4j.properties                            && \
+    echo $(hostname) > slaves                                                                   && \
+    cd /opt                                                                                     && \
+    #echo 'Getting SparkDatasets/SparkCode from GitHub ...'                                     && \
+    #git clone https://github.com/dserban/SparkDatasets.git                                     && \
+    #git clone https://github.com/dserban/SparkCode.git                                         && \
     echo 'Building container, this may take a while ...'
 
 ENV SPARK_HOME=/opt/spark                             		\	
