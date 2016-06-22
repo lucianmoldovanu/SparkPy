@@ -20,8 +20,8 @@ RUN chmod +x /usr/bin/launcher.sh                                               
     cd /opt                                                                                     && \
     bash Anaconda.sh -b -p /opt/anaconda                                                        && \
     rm Anaconda.sh                                                                              && \
-    conda update conda                                                                          && \
-    conda install numpy scipy                                                                   && \
+    #conda update conda                                                                          && \
+    #conda install numpy scipy                                                                   && \
     echo 'Installing seaborn (Python module) ...'                                               && \
     PATH=/opt/anaconda/bin:$PATH pip install seaborn                                            && \
     CLOSER="https://www.apache.org/dyn/closer.cgi?as_json=1"                                    && \
