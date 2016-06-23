@@ -20,16 +20,13 @@ RUN chmod +x /usr/bin/launcher.sh                                               
     cd /opt                                                                                     && \
     bash Anaconda.sh -b -p /opt/anaconda                                                        && \
     rm Anaconda.sh                                                                              && \
-    #conda update conda                                                                         && \
-    #conda install numpy scipy                                                                  && \
     echo 'Installing seaborn (Python module) ...'                                               && \
     PATH=/opt/anaconda/bin:$PATH pip install seaborn                                            && \
-	pip install folium																			&& \	
     CLOSER="https://www.apache.org/dyn/closer.cgi?as_json=1"                                    && \
     MIRROR=$(curl --stderr /dev/null ${CLOSER} | jq -r '.preferred')                            && \
     echo 'Downloading Spark ...'                                                                && \
     wget -qO /opt/spark.tgz                                                                        \
-             ${MIRROR}spark/spark-1.6.1/spark-1.6.1-bin-hadoop2.6.tgz                           && \
+    	${MIRROR}spark/spark-1.6.1/spark-1.6.1-bin-hadoop2.6.tgz                           	&& \
     echo 'Extracting Spark ...'                                                                 && \
     tar -xf /opt/spark.tgz -C /opt                                                              && \
     rm /opt/spark.tgz                                                                           && \
@@ -38,6 +35,8 @@ RUN chmod +x /usr/bin/launcher.sh                                               
     sed 's/INFO/ERROR/' log4j.properties.template > log4j.properties                            && \
     echo $(hostname) > slaves                                                                   && \
     cd /opt                                                                                     && \
+    pip install --upgrade pip									&& \
+    pip install folium										&& \
     #echo 'Getting SparkDatasets/SparkCode from GitHub ...'                                     && \
     #git clone https://github.com/dserban/SparkDatasets.git                                     && \
     #git clone https://github.com/dserban/SparkCode.git                                         && \
