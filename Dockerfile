@@ -10,7 +10,7 @@ RUN chmod +x /usr/bin/launcher.sh                                               
     apt-get -qq update                                                                          && \
     apt-get -qq -y install wget                                                                    \
                            curl                                                                    \
-                           git                                                                     \
+                           #git                                                                    \
                            vim                                                                     \
                            jq                                                                      \
                            mc                                                                      \
@@ -35,7 +35,6 @@ RUN chmod +x /usr/bin/launcher.sh                                               
     sed 's/INFO/ERROR/' log4j.properties.template > log4j.properties                            && \
     echo $(hostname) > slaves                                                                   && \
     cd /opt                                                                                     && \
-    conda install -c ioos folium=0.2.0                                                          && \
     #echo 'Getting SparkDatasets/SparkCode from GitHub ...'                                     && \
     #git clone https://github.com/dserban/SparkDatasets.git                                     && \
     #git clone https://github.com/dserban/SparkCode.git                                         && \
@@ -45,6 +44,12 @@ ENV SPARK_HOME=/opt/spark                             		\
     PYSPARK_PYTHON=/opt/anaconda/bin/python           		\
     IPYTHON_OPTS='notebook --no-browser --ip=0.0.0.0' 		\
     PATH=/opt/anaconda/bin:/opt/spark/bin:$PATH
+
+RUN echo 'Installing additional packages for Python ...'    && \
+    conda install -c ioos folium=0.2.0
+
+RUN echo 'Installing R and R-kernel for Jupyter ...'        && \
+    conda install -c r r-essentials r-irkernel
 
 CMD ["bash", "-c", "/usr/bin/launcher.sh"]
 
