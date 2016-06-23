@@ -35,8 +35,7 @@ RUN chmod +x /usr/bin/launcher.sh                                               
     sed 's/INFO/ERROR/' log4j.properties.template > log4j.properties                            && \
     echo $(hostname) > slaves                                                                   && \
     cd /opt                                                                                     && \
-    pip install --upgrade pip									&& \
-    pip install folium										&& \
+    conda install -c ioos folium=0.2.0                                                          && \
     #echo 'Getting SparkDatasets/SparkCode from GitHub ...'                                     && \
     #git clone https://github.com/dserban/SparkDatasets.git                                     && \
     #git clone https://github.com/dserban/SparkCode.git                                         && \
