@@ -46,7 +46,7 @@ ENV SPARK_HOME=/opt/spark                             		\
     PATH=/opt/anaconda/bin:/opt/spark/bin:$PATH
 
 RUN echo 'Installing additional packages for Python ...'    && \
-    conda install -c ioos folium=0.2.0
+    pip install folium
 
 RUN echo 'Installing R and R-kernel for Jupyter ...'        && \
     conda install -c r r-essentials r-irkernel
