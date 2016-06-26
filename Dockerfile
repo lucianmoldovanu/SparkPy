@@ -14,7 +14,8 @@ RUN chmod +x /usr/bin/launcher.sh                                               
                            vim                                                                     \
                            jq                                                                      \
                            mc                                                                      \
-                           default-jdk                                                          && \
+                           default-jdk                                                             \
+                           gcc                                                                  && \
     echo 'Downloading Anaconda ...'                                                             && \
     wget -qO /opt/Anaconda.sh https://repo.continuum.io/archive/Anaconda2-4.0.0-Linux-x86_64.sh && \
     cd /opt                                                                                     && \
