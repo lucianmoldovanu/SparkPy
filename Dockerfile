@@ -34,11 +34,7 @@ RUN chmod +x /usr/bin/launcher.sh                                               
     echo $(hostname) > slaves                                                                   && \
     cd /opt                                                                                     && \
     git clone --recursive https://github.com/dmlc/xgboost                                       && \
-    cd xgboost; make -j4
-    #echo 'Getting SparkDatasets/SparkCode from GitHub ...'                                     && \
-    #git clone https://github.com/dserban/SparkDatasets.git                                     && \
-    #git clone https://github.com/dserban/SparkCode.git                                         && \
-    
+    cd xgboost; make -j4                                                                        && \
     echo 'Building container, this may take a while ...'
 
 ENV SPARK_HOME=/opt/spark                             		\	
