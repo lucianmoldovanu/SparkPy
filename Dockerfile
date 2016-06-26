@@ -8,22 +8,11 @@ ADD launcher.sh /usr/bin/launcher.sh
 RUN chmod +x /usr/bin/launcher.sh                                                               && \
     export DEBIAN_FRONTEND=noninteractive                                                       && \
     apt-get -qq update                                                                          && \
-    apt-get -qq -y install wget          \
-                           curl          \
+    apt-get -qq -y install wget curl     \
                            git           \
-                           vim           \
-                           jq            \
-                           mc            \
+                           vim jq mc     \
                            git g++ make python-setuptools #dependencies for xgboost                \
                            default-jdk                                                          && \
-    apt-get -qq -y install wget                                                                    \
-                           curl                                                                    \
-                           #git                                                                    \
-                           vim                                                                     \
-                           jq                                                                      \
-                           mc                                                                      \
-                           default-jdk                                                             \
-                           gcc                                                                  && \
     echo 'Downloading Anaconda ...'                                                             && \
     wget -qO /opt/Anaconda.sh https://repo.continuum.io/archive/Anaconda2-4.0.0-Linux-x86_64.sh && \
     cd /opt                                                                                     && \
