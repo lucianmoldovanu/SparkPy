@@ -16,6 +16,14 @@ RUN chmod +x /usr/bin/launcher.sh                                               
                            mc            \
                            git g++ make python-setuptools #dependencies for xgboost                \
                            default-jdk                                                          && \
+    apt-get -qq -y install wget                                                                    \
+                           curl                                                                    \
+                           #git                                                                    \
+                           vim                                                                     \
+                           jq                                                                      \
+                           mc                                                                      \
+                           default-jdk                                                             \
+                           gcc                                                                  && \
     echo 'Downloading Anaconda ...'                                                             && \
     wget -qO /opt/Anaconda.sh https://repo.continuum.io/archive/Anaconda2-4.0.0-Linux-x86_64.sh && \
     cd /opt                                                                                     && \
