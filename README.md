@@ -9,7 +9,7 @@ Includes spark-csv package.
 **docker build -t** sparkpy **--no-cache=true** github.com/lucianmoldovanu/SparkPy
 
 ### Run (with mounted folder)
-**docker run -v** '/c/Users/i311766/Documents/iPython/2016.06 nasa_pdms':/nasa/ **--rm -p** 8888:8888 **-p** 4040:4040 **-i** lucianmol/sparkpy
+**docker run -v** '/c/Users/i311766/Documents/LucProjects/NasaPDMS/':/nasa/ **--rm -p** 8888:8888 **-p** 4040:4040 **-i** lucianmol/sparkpy
 
 ### SSH into docker container
 **docker run -i -t --entrypoint** /bin/bash \<imageID\>
